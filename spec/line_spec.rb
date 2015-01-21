@@ -68,4 +68,20 @@ describe(Line) do
       expect(Line.all()).to(eq([line1]))
     end
   end
+
+  describe("#which_stations") do
+    it("tells the operator which stations the line goes to") do
+      station1 = Station.new({:name => "Portland", :id => nil})
+      station1.save()
+      station2 = Station.new({:name => "Seattle", :id => nil})
+      station2.save()
+      line1 = Line.new({:name => "Blue", :id => nil})
+      line1.save()
+      station1.add_line(line1)
+      station2.add_line(line1)
+      expect(line1.which_stations()).to(eq([station1, station2]))
+    end
+  end
+
+
 end

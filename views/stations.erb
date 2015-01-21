@@ -1,0 +1,44 @@
+<h1><%=@station.name() %> Station </h1>
+<div class="col-md-6">
+<% if @lines.any?() %>
+  <p>Lines</p>
+
+  <ul>
+    <% @lines.each do |line| %>
+      <li><%= line.name() %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no lines yet!</p>
+<% end %>
+
+</div>
+<div class="col-md-6">
+<h2>Update the <%=@station.name() %> station </h2>
+
+<form action="/stations/<%= @station.id() %>/edit" method="post">
+  <input name="_method" type="hidden" value="patch">
+
+  <label for="name">Rename your station:</label>
+  <input id="name" name="name" type="text">
+
+  <button type="submit">Update</button>
+</form>
+
+<form action="/stations/<%= @station.id() %>/delete" method="post">
+  <input name="_method" type="hidden" value="delete">
+
+  <button type="submit">Delete Station and Return</button>
+</form>
+
+<h2>Add a line to <%=@station.name() %> station </h2>
+
+<form action="/stations/<%= @station.id() %>/add_line" method="post">
+  <select name = "line_to_add">
+    <% @all_lines.each do |line| %>
+    <option value="<%= line.id() %>"><%= line.name() %></option>
+    <% end %>
+  </select>
+  <button type="submit">Add</button>
+</form>
+</div>

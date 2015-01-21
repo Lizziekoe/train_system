@@ -1,0 +1,33 @@
+<form action="/operator_admin" method="post">
+<label for="station_name">Add a Station:</label>
+<input id="station_name" name="station_name" type="text">
+
+  <label for="line_name">Add a Line:</label>
+  <input id="line_name" name="line_name" type="text">
+
+  <button type="submit">Add Line</button>
+</form>
+
+<% if @stations.any?() %>
+  <p>Click on a station to see its lines:</p>
+
+  <ul>
+    <% @stations.each do |station| %>
+      <li><a href="/stations/<%= station.id() %>"><%= station.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no stations yet!</p>
+<% end %>
+
+<% if @lines.any?() %>
+  <p>Click on a station to see its lines:</p>
+
+  <ul>
+    <% @lines.each do |line| %>
+      <li><a href="/lines/<%= line.id() %>"><%= line.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no lines yet!</p>
+<% end %>

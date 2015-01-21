@@ -46,4 +46,15 @@ class Line
   define_method(:delete) do
     DB.exec("DELETE FROM lines WHERE id = #{self.id()};")
   end
+
+  define_method(:which_stations) do
+    results = DB.exec("SELECT * FROM stops WHERE line_id = #{self.id()};")
+    stations = []
+    results.each() do |stop|
+      station_id = stop.fetch("station_id").to_i()
+      found_station = Station.find(station_id)
+      stations.push(found_station)
+    end
+    stations
+  end
 end
