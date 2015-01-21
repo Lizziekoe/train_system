@@ -26,4 +26,24 @@ class Station
   define_method(:==) do |another_station|
     self.name().==(another_station.name()).&(self.id().==another_station.id())
   end
+
+  define_singleton_method(:find) do |id|
+    found_station = nil
+    Station.all().each() do |station|
+      if station.id().==(id)
+        found_station = station
+      end
+    end
+    found_station
+  end
+
+  define_method(:update) do |attributes|
+    @name = attributes.fetch(:name)
+    @id = self.id()
+    DB.exec("UPDATE stations SET name = '#{@name}' WHERE id = #{@id};")
+  end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM stations WHERE id = #{self.id()};")
+  end
 end

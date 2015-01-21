@@ -39,4 +39,33 @@ describe(Station) do
     end
   end
 
+  describe(".find") do
+    it("returns a station by a given id") do
+      station1 = Station.new({:name => "Portland", :id => nil})
+      station2 = Station.new({:name => "Seattle", :id => nil})
+      station1.save()
+      station2.save()
+      expect(Station.find(station1.id())).to(eq(station1))
+    end
+  end
+
+  describe("#update") do
+    it("allows the user to update a station name") do
+      station1 = Station.new({:name => "Portland", :id => nil})
+      station1.save()
+      station1.update({:name => "Seattle"})
+      expect(station1.name()).to(eq("Seattle"))
+    end
+  end
+
+  describe("#delete") do
+    it("deletes a station") do
+      station1 = Station.new({:name => "Portland", :id => nil})
+      station2 = Station.new({:name => "Seattle", :id => nil})
+      station1.save()
+      station2.save()
+      station2.delete()
+      expect(Station.all()).to(eq([station1]))
+    end
+  end
 end
