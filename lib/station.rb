@@ -48,10 +48,7 @@ class Station
   end
 
   define_method(:add_line) do |line|
-    exists = DB.exec("SELECT * FROM stops WHERE line_id = #{line.id()} AND station_id = #{self.id()};")
-    if exists = NULL #these things don't exist in the database 
       DB.exec("INSERT INTO stops (line_id, station_id) VALUES (#{line.id()}, #{self.id()})")
-    end
   end
 
   define_method(:which_lines) do
